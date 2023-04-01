@@ -14,6 +14,7 @@ public class BusinesSpawner : MonoBehaviour
 
     public void SpawnBusiness(BusinessModel[] businessModels)
     {
+        
         foreach (var businessModel in businessModels)
         {
             var business = Instantiate(_businessPrefab, _parent);

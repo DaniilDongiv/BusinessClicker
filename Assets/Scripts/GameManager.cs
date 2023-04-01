@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         _json.Save(saveData);
        
         
-        EditorApplication.isPlaying = false;
+        //EditorApplication.isPlaying = false;
         
     }
  
@@ -77,8 +77,7 @@ public class GameManager : MonoBehaviour
     {
         _deleteFileSystem.Delete();
         _businesSpawner.DeleteControllers();
-        EditorApplication.isPlaying = false;
-       // StartGame();
+        // StartGame();
     }
     
 }
