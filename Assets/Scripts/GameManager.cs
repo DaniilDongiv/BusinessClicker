@@ -6,8 +6,8 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private ProfitSystem profitSystem;
-    [SerializeField] private BalanceView _balanceView;
+    [SerializeField] private TotalBalanceController totalBalanceController;
+   // [SerializeField] private BalanceView _balanceView;
     [SerializeField] private ConfigSystem _configSystem;
     [SerializeField] private BusinesSpawner _businesSpawner;
     
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _balanceView.Initialize(profitSystem);
+        //_balanceView.Initialize(totalBalanceController);
     }
 
     private void StartGame()
@@ -35,9 +35,11 @@ public class GameManager : MonoBehaviour
         var data = _json.Load();
         if (data == null)
         {
-             Debug.Log("IF");
-             Debug.Log(profitSystem.GetBalance());
-             _configSystem.CreateBusinessModels();
+
+            Debug.Log("IF");
+            Debug.Log(totalBalanceController.GetBalance());
+            _configSystem.CreateBusinessModels();
+
             _businessModels = _configSystem.GetBuisnessModels();
         }
         else
@@ -45,8 +47,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("ELSE");
             _businessModels = data.BusinessModels;
             Debug.Log(data.Balance);
-            
-            profitSystem.Initialize(data.Balance);
+
+
+            totalBalanceController.Initialize(data.Balance);
+
         }
         
         _businesSpawner.SpawnBusiness(_businessModels);
@@ -62,10 +66,11 @@ public class GameManager : MonoBehaviour
     public void SaveGame()
     {
         var businesModels = _configSystem.GetBuisnessModels();
-        
-        var balance = profitSystem.GetBalance();
-        var saveData = new SaveData(balance,businesModels);
-        
+
+        var balance = totalBalanceController.GetBalance();
+        var saveData = new SaveData(balance, businesModels);
+
+
         _json.Save(saveData);
        
         
